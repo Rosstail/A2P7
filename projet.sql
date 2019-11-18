@@ -240,7 +240,7 @@ VALUES (8, 1, 13),
 /*
 	EXERCICE 11
 */
-SELECT project_name, project_start_datetime , project_quotation
+SELECT project_name, project_start_datetime, project_quotation
 FROM projects
 
 /*
