@@ -111,11 +111,11 @@ VALUES  ('Man', 'Iron', 'stark-industries@tony.stark', '4v3ng385', 'admin', '201
 /*
 	EXERCICE 5
 */
-INSERT INTO projects (project_customer_id, project_architect_id, project_start_datetime, project_delivery_datetime, project_quotation, project_commentary)
-VALUES  (17, 2, "2019-11-19 08:00", "2019-12-01 13:00", 70000, "Délai à ne pas dépasser"),
-		(18, 8, "2019-11-20 10:30", "2019-12-03 08:00", 100000, NULL),
-		(19, 12, "2019-11-21 16:00", "2020-12-06 11:00", 125000, "Le client roucoule fort"),
-         (17, 4, "2019-11-22 12:00", "2019-12-08 09:00", 62500, "Client très content");
+INSERT INTO projects (project_customer_id, project_architect_id, project_name, project_start_datetime, project_delivery_datetime, project_quotation, project_commentary)
+VALUES  (17, 2, "Maison du Pauvre", "2019-11-19 08:00", "2019-12-01 13:00", 70000, "Délai à ne pas dépasser"),
+		(18, 8, "Maison du pas riche", "2019-11-20 10:30", "2019-12-03 08:00", 100000, NULL),
+		(19, 12, "Maison du bien payé", "2019-11-21 16:00", "2020-12-06 11:00", 125000, "Le client roucoule fort"),
+         (17, 4, "Maison de Kollector", "2019-11-22 12:00", "2019-12-08 09:00", 62500, "Client très content");
 
 /*
 	EXERCICE 6
@@ -231,3 +231,18 @@ VALUES (8, 1, 13),
        (5, 4, 17),
        (18, 4, 27),
        (11, 4, 47);
+
+/*
+	EXERCICE 10
+*/
+
+
+/*
+	EXERCICE 11
+*/
+SELECT project_name, project_start_datetime , project_quotation
+FROM projects
+
+/*
+	EXERCICE 12
+*/
