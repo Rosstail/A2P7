@@ -315,3 +315,12 @@ WHERE P.project_id = 1 AND U.user_id = P.project_architect_id AND S.step_project
 SELECT P.project_name, DATEDIFF(P.project_delivery_datetime, P.project_start_datetime) AS project_estimated_days, DATEDIFF(MAX(S.step_done_datetime), MIN(S.step_start_datetime)) AS real_time
 FROM projects AS P, steps as S
 WHERE P.project_id = 1 AND S.step_project_id = P.project_id
+
+/*
+	EXERCICE 20
+*/
+SELECT P.project_name, P.project_start_datetime, MAX(S.step_done_datetime) AS real_time, DATEDIFF(MAX(S.step_done_datetime), P.project_start_datetime) AS real_day, P.project_quotation
+FROM projects AS P, steps AS S
+WHERE P.project_id = 4 AND S.step_project_id = P.project_id
+
+
