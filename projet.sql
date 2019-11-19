@@ -285,13 +285,14 @@ AND P.project_architect_id = 8
 /*
 	EXERCICE 15
 */
-SELECT P.project_name, CONCAT(U.user_name, ' ', U.user_firstname)
-FROM projects AS P, users AS U
-WHERE P.project_id = 1 AND U.user_id = P.project_customer_id
+SELECT P.project_name, CONCAT(U.user_name, ' ', U.user_firstname) AS architect_name, SUM(UM.used_material_surface_price * M.material_needed_surface) AS total_price
+FROM projects AS P, users AS U, materials as M, used_material AS UM
+WHERE P.project_id = M.material_project_id AND M.material_material_id = UM.used_material_id AND P.project_architect_id = U.user_id
+AND P.project_id = 1
 
 /*
 	EXERCICE 16
 */
-SELECT P.project_name, P.project_start_datetime, P.project_quotation, CONCAT(U.user_name, ' ', U.user_firstname), U.user_signdatetime
+SELECT P.project_name, P.project_start_datetime, P.project_quotation, CONCAT(U.user_name, ' ', U.user_firstname) AS nom_prenom, U.user_signdatetime
 FROM projects AS P, users AS U
 WHERE P.project_id = 1 AND U.user_id = P.project_architect_id
