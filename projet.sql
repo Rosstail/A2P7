@@ -36,7 +36,9 @@ CREATE TABLE IF NOT EXISTS projects (
     project_delivery_datetime DATETIME NOT NULL,
     project_quotation INT NOT NULL,
     project_commentary TEXT,
-	PRIMARY KEY (project_id)
+	PRIMARY KEY (project_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (user_role) REFERENCES users(user_role)
     );
 
 CREATE TABLE IF NOT EXISTS steps (
@@ -47,14 +49,18 @@ CREATE TABLE IF NOT EXISTS steps (
     step_commentary TEXT,
     step_start_datetime DATETIME NOT NULL,
     step_done_datetime DATETIME NOT NULL,
-	PRIMARY KEY (step_id)
+	PRIMARY KEY (step_id),
+    FOREIGN KEY (project_id) REFERENCES projects(project_id),
+    FOREIGN KEY (project_architect_id) REFERENCES projects(project_architect_id)
     );
 
 CREATE TABLE IF NOT EXISTS architect (
 	architect_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     architect_project_id INT NOT NULL,
     architect_assigned_datetime DATETIME NOT NULL,
-	PRIMARY KEY (architect_id)
+	PRIMARY KEY (architect_id),
+	FOREIGN KEY (project_id) REFERENCES projects(project_id),
+    FOREIGN KEY (project_architect_id) REFERENCES projects(project_architect_id)
     );
 
 CREATE TABLE IF NOT EXISTS used_material (
@@ -69,7 +75,9 @@ CREATE TABLE IF NOT EXISTS materials (
 	material_material_id INT UNSIGNED NOT NULL,
     material_project_id INT NOT NULL,
     material_needed_surface INT NOT NULL,
-	PRIMARY KEY (material_id)
+	PRIMARY KEY (material_id),
+    FOREIGN KEY (used_material_id) REFERENCES used_material(used_material_id),
+    FOREIGN KEY (project_id) REFERENCES projects(project_id)
     );
 
 CREATE TABLE IF NOT EXISTS messages (
@@ -79,7 +87,10 @@ CREATE TABLE IF NOT EXISTS messages (
     message_customer_id INT NOT NULL,
     message_content TEXT NOT NULL,
     message_sent_datetime DATETIME NOT NULL,
-	PRIMARY KEY (message_id)
+	PRIMARY KEY (message_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (project_id) REFERENCES projects(project_id),
+    FOREIGN KEY (architect_id) REFERENCES architect(architect_id)
     )
 
 /*
@@ -235,7 +246,9 @@ VALUES (8, 1, 13),
 /*
 	EXERCICE 10
 */
-
+INSERT INTO messages (message_customer_id, message_architect_id, message_project_id, message_content, message_sent_datetime)
+VALUES 	("SAMPLE TEXT 1", "2019-11-20 12:00"),
+		("SAMPLE TEXT 2", "2019-11-20-15:00"),
 
 /*
 	EXERCICE 11
@@ -245,4 +258,30 @@ FROM projects
 
 /*
 	EXERCICE 12
+*/
+SELECT project_name, project_start_datetime, project_quotation
+FROM projects
+#si valeur de project_quotation égale valeur sélectionnée (ici min / max)
+WHERE project_quotation = (SELECT MIN(project_quotation) FROM projects)
+OR project_quotation = (SELECT MAX(project_quotation) FROM projects)
+
+/*
+	EXERCICE 13
+*/
+SELECT project_name, project_start_datetime, project_delivery_datetime, DATEDIFF(project_delivery_datetime, project_start_datetime) AS project_days, project_quotation
+FROM projects
+#si valeur de project_days égale valeur sélectionnée (ici min / max)
+WHERE DATEDIFF(project_delivery_datetime, project_start_datetime) = (SELECT MIN(DATEDIFF(project_delivery_datetime, project_start_datetime)) FROM projects)
+OR DATEDIFF(project_delivery_datetime, project_start_datetime) = (SELECT MAX(DATEDIFF(project_delivery_datetime, project_start_datetime)) FROM projects)
+
+/*
+	EXERCICE 14
+*/
+SELECT P.project_name, P.project_start_datetime,  P.project_quotation, U.user_name, U.user_firstname, U.user_signdatetime
+FROM projects as P, users as U
+WHERE P.project_architect_id = U.user_id
+AND P.project_architect_id = 8
+
+/*
+	EXERCICE 15
 */
