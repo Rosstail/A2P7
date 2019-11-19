@@ -296,3 +296,22 @@ AND P.project_id = 1
 SELECT P.project_name, P.project_start_datetime, P.project_quotation, CONCAT(U.user_name, ' ', U.user_firstname) AS nom_prenom, U.user_signdatetime
 FROM projects AS P, users AS U
 WHERE P.project_id = 1 AND U.user_id = P.project_architect_id
+
+/*
+	EXERCICE 17
+*/
+
+
+/*
+	EXERCICE 18
+*/
+SELECT P.project_name, P.project_start_datetime, P.project_quotation, CONCAT(U.user_name, ' ', U.user_firstname) AS nom_prenom, U.user_signdatetime, S.step_name
+FROM projects AS P, users AS U, steps AS S
+WHERE P.project_id = 1 AND U.user_id = P.project_architect_id AND S.step_project_id = P.project_id
+
+/*
+	EXERCICE 19
+*/
+SELECT P.project_name, DATEDIFF(P.project_delivery_datetime, P.project_start_datetime) AS project_estimated_days, DATEDIFF(MAX(S.step_done_datetime), MIN(S.step_start_datetime)) AS real_time
+FROM projects AS P, steps as S
+WHERE P.project_id = 1 AND S.step_project_id = P.project_id
