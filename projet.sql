@@ -277,7 +277,7 @@ OR DATEDIFF(project_delivery_datetime, project_start_datetime) = (SELECT MAX(DAT
 /*
 	EXERCICE 14
 */
-SELECT P.project_name, P.project_start_datetime,  P.project_quotation, U.user_name, U.user_firstname, U.user_signdatetime
+SELECT P.project_name, P.project_start_datetime, P.project_quotation, U.user_name, U.user_firstname, U.user_signdatetime
 FROM projects as P, users as U
 WHERE P.project_architect_id = U.user_id
 AND P.project_architect_id = 8
@@ -285,3 +285,13 @@ AND P.project_architect_id = 8
 /*
 	EXERCICE 15
 */
+SELECT P.project_name, CONCAT(U.user_name, ' ', U.user_firstname)
+FROM projects AS P, users AS U
+WHERE P.project_id = 1 AND U.user_id = P.project_customer_id
+
+/*
+	EXERCICE 16
+*/
+SELECT P.project_name, P.project_start_datetime, P.project_quotation, CONCAT(U.user_name, ' ', U.user_firstname), U.user_signdatetime
+FROM projects AS P, users AS U
+WHERE P.project_id = 1 AND U.user_id = P.project_architect_id
