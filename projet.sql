@@ -30,15 +30,14 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS projects (
     project_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    project_name VARCHAR(20) NOT NULL,
     project_customer_id INT UNSIGNED NOT NULL,
     project_architect_id INT UNSIGNED NOT NULL,
     project_start_datetime DATETIME NOT NULL,
     project_delivery_datetime DATETIME NOT NULL,
     project_quotation INT NOT NULL,
     project_commentary TEXT,
-	PRIMARY KEY (project_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (user_role) REFERENCES users(user_role)
+	PRIMARY KEY (project_id)
     );
 
 CREATE TABLE IF NOT EXISTS steps (
@@ -49,18 +48,13 @@ CREATE TABLE IF NOT EXISTS steps (
     step_commentary TEXT,
     step_start_datetime DATETIME NOT NULL,
     step_done_datetime DATETIME NOT NULL,
-	PRIMARY KEY (step_id),
-    FOREIGN KEY (project_id) REFERENCES projects(project_id),
-    FOREIGN KEY (project_architect_id) REFERENCES projects(project_architect_id)
+	PRIMARY KEY (step_id)
     );
 
 CREATE TABLE IF NOT EXISTS architect (
 	architect_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     architect_project_id INT NOT NULL,
-    architect_assigned_datetime DATETIME NOT NULL,
-	PRIMARY KEY (architect_id),
-	FOREIGN KEY (project_id) REFERENCES projects(project_id),
-    FOREIGN KEY (project_architect_id) REFERENCES projects(project_architect_id)
+    architect_assigned_datetime DATETIME NOT NULL
     );
 
 CREATE TABLE IF NOT EXISTS used_material (
@@ -75,9 +69,7 @@ CREATE TABLE IF NOT EXISTS materials (
 	material_material_id INT UNSIGNED NOT NULL,
     material_project_id INT NOT NULL,
     material_needed_surface INT NOT NULL,
-	PRIMARY KEY (material_id),
-    FOREIGN KEY (used_material_id) REFERENCES used_material(used_material_id),
-    FOREIGN KEY (project_id) REFERENCES projects(project_id)
+	PRIMARY KEY (material_id)
     );
 
 CREATE TABLE IF NOT EXISTS messages (
@@ -87,10 +79,7 @@ CREATE TABLE IF NOT EXISTS messages (
     message_receiver_id INT NOT NULL,
     message_content TEXT NOT NULL,
     message_sent_datetime DATETIME NOT NULL,
-	PRIMARY KEY (message_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (project_id) REFERENCES projects(project_id),
-    FOREIGN KEY (architect_id) REFERENCES architect(architect_id)
+	PRIMARY KEY (message_id)
     )
 
 /*
@@ -246,10 +235,26 @@ VALUES (8, 1, 13),
 /*
 	EXERCICE 10
 */
-INSERT INTO messages (message_customer_id, message_architect_id, message_project_id, message_content, message_sent_datetime)
-VALUES 	("SAMPLE TEXT 1", "2019-11-20 12:00"),
-		("SAMPLE TEXT 2", "2019-11-20-15:00"),
-
+INSERT INTO messages (message_project_id, message_sender_id, message_receiver_id, message_content, message_sent_datetime)
+VALUES 	("1", "3", "1", "SAMPLE TEXT 1", "2019-11-20 12:00"),
+		("2", "8", "1", "SAMPLE TEXT 2", "2019-11-20-15:00"),
+		("4", "19", "1", "SAMPLE TEXT 3", "2019-11-20-15:00"),
+		("2", "4", "1", "SAMPLE TEXT 4", "2019-11-20-15:00"),
+		("1", "16", "1", "SAMPLE TEXT 5", "2019-11-20-15:00"),
+		("2", "2", "1", "SAMPLE TEXT 6", "2019-11-20-15:00"),
+		("3", "8", "1", "SAMPLE TEXT 7", "2019-11-20-15:00"),
+		("2", "6", "1", "SAMPLE TEXT 8", "2019-11-20-15:00"),
+		("1", "10", "1", "SAMPLE TEXT 9", "2019-11-20-15:00"),
+		("2", "15", "1", "SAMPLE TEXT 10", "2019-11-20-15:00"),
+		("4", "3", "1", "SAMPLE TEXT 11", "2019-11-20-15:00"),
+		("1", "3", "1", "SAMPLE TEXT 12", "2019-11-20-15:00"),
+		("3", "3", "1", "SAMPLE TEXT 13", "2019-11-20-15:00"),
+		("2", "3", "1", "SAMPLE TEXT 14", "2019-11-20-15:00"),
+		("1", "3", "1", "SAMPLE TEXT 15", "2019-11-20-15:00"),
+		("4", "3", "1", "SAMPLE TEXT 16", "2019-11-20-15:00"),
+		("2", "3", "1", "SAMPLE TEXT 17", "2019-11-20-15:00"),
+		("3", "3", "1", "SAMPLE TEXT 18", "2019-11-20-15:00"),
+		("2", "3", "1", "SAMPLE TEXT 19", "2019-11-20-15:00")
 /*
 	EXERCICE 11
 */
@@ -337,7 +342,4 @@ AND S.step_project_id = P.project_id
 */
 SELECT projects.project_name, projects.project_start_datetime, projects.project_delivery_datetime, MAX(steps.step_done_datetime) AS real_delivery_datetime, CONCAT(users.user_name, " ", users.user_firstname) AS referent_name_first, COUNT(steps.step_id),(DATEDIFF(MAX(steps.step_done_datetime), MIN(steps.step_done_datetime)) / COUNT(steps.step_id))
 FROM projects, steps, users
-WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id AND users.user_id = projects.project_architect_id;
-SELECT messages.message_sender_id, messages.message_receiver_id
-FROM messages
 WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id AND users.user_id = projects.project_architect_id;
