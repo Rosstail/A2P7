@@ -83,8 +83,8 @@ CREATE TABLE IF NOT EXISTS materials (
 CREATE TABLE IF NOT EXISTS messages (
     message_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     message_project_id INT NOT NULL,
-    message_architect_id INT NOT NULL,
-    message_customer_id INT NOT NULL,
+    message_sender_id INT NOT NULL,
+    message_receiver_id INT NOT NULL,
     message_content TEXT NOT NULL,
     message_sent_datetime DATETIME NOT NULL,
 	PRIMARY KEY (message_id),
@@ -300,7 +300,10 @@ WHERE P.project_id = 1 AND U.user_id = P.project_architect_id
 /*
 	EXERCICE 17
 */
-
+SELECT DISTINCT projects.project_name, projects.project_start_datetime, projects.project_quotation, CONCAT(users.user_name, " ", users.user_firstname) as name_architects
+FROM projects, users, steps
+WHERE steps.step_architect_id = users.user_id AND steps.step_project_id = projects.project_id
+AND projects.project_id = 1
 
 /*
 	EXERCICE 18
@@ -319,8 +322,22 @@ WHERE P.project_id = 1 AND S.step_project_id = P.project_id
 /*
 	EXERCICE 20
 */
-SELECT P.project_name, P.project_start_datetime, MAX(S.step_done_datetime) AS real_time, DATEDIFF(MAX(S.step_done_datetime), P.project_start_datetime) AS real_day, P.project_quotation
+#TEST
+SELECT P.project_name, P.project_start_datetime, P.project_quotation, S.step_done_datetime
 FROM projects AS P, steps AS S
-WHERE P.project_id = 4 AND S.step_project_id = P.project_id
+WHERE S.step_done_datetime > (SELECT MAX(P.project_delivery_datetime) FROM projects AS P)
+AND S.step_project_id = P.project_id
 
+/*
+	EXERCICE 21
+*/
 
+/*
+	EXERCICE 23
+*/
+SELECT projects.project_name, projects.project_start_datetime, projects.project_delivery_datetime, MAX(steps.step_done_datetime) AS real_delivery_datetime, CONCAT(users.user_name, " ", users.user_firstname) AS referent_name_first, COUNT(steps.step_id),(DATEDIFF(MAX(steps.step_done_datetime), MIN(steps.step_done_datetime)) / COUNT(steps.step_id))
+FROM projects, steps, users
+WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id AND users.user_id = projects.project_architect_id;
+SELECT messages.message_sender_id, messages.message_receiver_id
+FROM messages
+WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id AND users.user_id = projects.project_architect_id;
