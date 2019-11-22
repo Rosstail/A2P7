@@ -376,16 +376,12 @@ SELECT DISTINCT projects.project_name, projects.project_start_datetime, projects
 (SELECT DISTINCT DATEDIFF(MAX(steps.step_done_datetime), MIN(projects.project_start_datetime)) / COUNT(steps.step_id)
   FROM projects, steps
   WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id
-) AS nb_days_per_steps
+) AS nb_days_per_steps,
 FROM projects, users, steps, messages, architects
 WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id AND architects.architect_project_id = projects.project_id AND users.user_id = architects.architect_id AND messages.message_project_id = projects.project_id
 
-#   F I N   #
-#TEST
-(SELECT DISTINCT messages.message_id
-  FROM projects, steps, messages
+#   F I N #
+SELECT COUNT(DISTINCT messages.message_id), DATEDIFF(MAX(steps.step_done_datetime), MIN(projects.project_start_datetime)), COUNT(messages.message_id) / DATEDIFF(MAX(steps.step_done_datetime), MIN(projects.project_start_datetime))
+  FROM projects, messages, steps
   WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id AND messages.message_project_id = projects.project_id
-) AS nb_messages_per_day,
-
-
-
+  GROUP BY steps.step_id
