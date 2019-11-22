@@ -1,9 +1,9 @@
 /*
     EXERCICE 1
 */
+DROP DATABASE IF EXISTS bdd_ca_design;
 CREATE DATABASE IF NOT EXISTS bdd_ca_design CHARACTER set utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE bdd_ca_design;
-#DROP DATABASE IF EXISTS bdd_ca_design;
 
 /*
 	EXERCICE 2
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS projects (
     );
 
 CREATE TABLE IF NOT EXISTS steps (
-	step_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    step_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     step_project_id INT NOT NULL,
     step_architect_id INT UNSIGNED NOT NULL,
     step_name VARCHAR(20) NOT NULL,
@@ -52,21 +52,22 @@ CREATE TABLE IF NOT EXISTS steps (
     );
 
 CREATE TABLE IF NOT EXISTS architect (
-	architect_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  	architect_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     architect_project_id INT NOT NULL,
-    architect_assigned_datetime DATETIME NOT NULL
+    architect_assigned_datetime DATETIME NOT NULL,
+    PRIMARY KEY (architect_id)
     );
 
 CREATE TABLE IF NOT EXISTS used_material (
-	used_material_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  	used_material_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     used_material_name VARCHAR(20) NOT NULL,
     used_material_surface_price INT NOT NULL,
 	PRIMARY KEY (used_material_id)
     );
 
 CREATE TABLE IF NOT EXISTS materials (
-	material_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	material_material_id INT UNSIGNED NOT NULL,
+  	material_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  	material_material_id INT UNSIGNED NOT NULL,
     material_project_id INT NOT NULL,
     material_needed_surface INT NOT NULL,
 	PRIMARY KEY (material_id)
@@ -336,10 +337,55 @@ AND S.step_project_id = P.project_id
 /*
 	EXERCICE 21
 */
+SELECT  P.project_name,
+    CONCAT(U.user_name," ", U.user_firstname) AS name_expeditor,
+        M.message_content,
+        M.message_sent_datetime,
+        (SELECT DATEDIFF (MAX(M.message_sent_datetime), MIN(M.message_sent_datetime)) / COUNT(M.message_sent_datetime) FROM messages as M WHERE M.message_project_id = 1) AS average_days_between_messages
+FROM projects AS P, users AS U, messages AS M
+WHERE P.project_id = M.message_project_id AND M.message_sender_id = U.user_id
+AND P.project_id = 1
+GROUP BY P.project_name, U.user_name, U.user_firstname, M.message_content, M.message_sent_datetime
+
+/*
+  EXERCICE 22
+*/
+
+
 
 /*
 	EXERCICE 23
 */
-SELECT projects.project_name, projects.project_start_datetime, projects.project_delivery_datetime, MAX(steps.step_done_datetime) AS real_delivery_datetime, CONCAT(users.user_name, " ", users.user_firstname) AS referent_name_first, COUNT(steps.step_id),(DATEDIFF(MAX(steps.step_done_datetime), MIN(steps.step_done_datetime)) / COUNT(steps.step_id))
-FROM projects, steps, users
-WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id AND users.user_id = projects.project_architect_id;
+SELECT DISTINCT projects.project_name, projects.project_start_datetime, projects.project_delivery_datetime, CONCAT(users.user_name, " ", users.user_firstname) AS referent_name_first,
+(SELECT DISTINCT MAX(steps.step_done_datetime)
+  FROM projects, steps
+  WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id
+) AS real_done_date,
+(SELECT DISTINCT COUNT(messages.message_id)
+  FROM projects, users, messages, architects 
+  WHERE projects.project_id = 2 AND architects.architect_project_id = projects.project_id AND users.user_id = architects.architect_id AND messages.message_project_id = projects.project_id
+) AS nb_messages,
+(SELECT DISTINCT COUNT(steps.step_id)
+  FROM projects, steps
+  WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id
+) AS nb_steps,
+(SELECT DISTINCT COUNT(messages.message_id) / DATEDIFF(MAX(steps.step_done_datetime), MIN(projects.project_start_datetime))
+  FROM projects, steps, messages
+  WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id AND messages.message_project_id = projects.project_id
+) AS nb_messages_per_day,
+(SELECT DISTINCT DATEDIFF(MAX(steps.step_done_datetime), MIN(projects.project_start_datetime)) / COUNT(steps.step_id)
+  FROM projects, steps
+  WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id
+) AS nb_days_per_steps
+FROM projects, users, steps, messages, architects
+WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id AND architects.architect_project_id = projects.project_id AND users.user_id = architects.architect_id AND messages.message_project_id = projects.project_id
+
+#   F I N   #
+#TEST
+(SELECT DISTINCT messages.message_id
+  FROM projects, steps, messages
+  WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id AND messages.message_project_id = projects.project_id
+) AS nb_messages_per_day,
+
+
+
