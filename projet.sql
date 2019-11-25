@@ -142,46 +142,46 @@ VALUES  (17, 2, "Maison du Pauvre", "2019-11-19 08:00", "2019-12-01 13:00", 7000
 INSERT INTO steps (step_project_id, step_architect_id, step_name, step_commentary, step_start_datetime, step_done_datetime)
  VALUES    (1, 2, "Observations", "Début du projet", "2019-11-20 08:00", "2019-11-20 17:00"),
  (1, 2, "Estimations", NULL, "2019-11-21 08:00", "2019-11-21 17:00"),
- (1, 2, "Croquis simples", NULL, "2019-11-22 08:00", "2019-11-22 17:00"),
+ (1, 3, "Croquis simples", NULL, "2019-11-22 08:00", "2019-11-22 17:00"),
  (1, 2, "Proposition croquis", NULL, "2019-11-23 08:00", "2019-11-23 17:00"),
- (1, 2, "Calculs contraintes", NULL, "2019-11-24 08:00", "2019-11-24 17:00"),
+ (1, 5, "Calculs contraintes", NULL, "2019-11-24 08:00", "2019-11-24 17:00"),
  (1, 2, "Soumission croquis ", NULL, "2019-11-25 08:00", "2019-11-25 17:00"),
- (1, 2, "Simulations", NULL, "2019-11-26 08:00", "2019-11-26 17:00"),
+ (1, 7, "Simulations", NULL, "2019-11-26 08:00", "2019-11-26 17:00"),
  (1, 2, "Corrections", NULL, "2019-11-27 08:00", "2019-11-27 17:00"),
  (1, 2, "Validation", NULL, "2019-11-28 08:00", "2019-11-28 17:00"),
  (1, 2, "Confirmation", "Fin de projet", "2019-11-29 08:00", "2019-11-29 17:00"),
  #2EME PROJET
- (2, 5, "Observations", "Début du projet", "2019-11-20 11:00", "2019-11-20 17:00"),
- (2, 5, "Estimations", NULL, "2019-11-21 08:00", "2019-11-21 17:00"),
- (2, 5, "Croquis simples", NULL, "2019-11-22 08:00", "2019-11-22 17:00"),
- (2, 5, "Proposition croquis", NULL, "2019-11-23 08:00", "2019-11-23 17:00"),
- (2, 5, "Calculs contraintes", NULL, "2019-11-24 08:00", "2019-11-24 17:00"),
- (2, 5, "Soumission croquis ", NULL, "2019-11-25 08:00", "2019-11-25 17:00"),
- (2, 5, "Simulations", NULL, "2019-11-26 08:00", "2019-11-26 17:00"),
- (2, 5, "Corrections", NULL, "2019-11-27 08:00", "2019-11-27 17:00"),
- (2, 5, "Validation", NULL, "2019-11-28 08:00", "2019-11-28 17:00"),
- (2, 5, "Confirmation", "Fin de projet", "2019-11-29 08:00", "2019-11-29 17:00"),
+ (2, 4, "Observations", "Début du projet", "2019-11-20 11:00", "2019-11-20 17:00"),
+ (2, 12, "Estimations", NULL, "2019-11-21 08:00", "2019-11-21 17:00"),
+ (2, 11, "Croquis simples", NULL, "2019-11-22 08:00", "2019-11-22 17:00"),
+ (2, 8, "Proposition croquis", NULL, "2019-11-23 08:00", "2019-11-23 17:00"),
+ (2, 3, "Calculs contraintes", NULL, "2019-11-24 08:00", "2019-11-24 17:00"),
+ (2, 11, "Soumission croquis ", NULL, "2019-11-25 08:00", "2019-11-25 17:00"),
+ (2, 4, "Simulations", NULL, "2019-11-26 08:00", "2019-11-26 17:00"),
+ (2, 8, "Corrections", NULL, "2019-11-27 08:00", "2019-11-27 17:00"),
+ (2, 3, "Validation", NULL, "2019-11-28 08:00", "2019-11-28 17:00"),
+ (2, 4, "Confirmation", "Fin de projet", "2019-11-29 08:00", "2019-11-29 17:00"),
  #3EME PROJET
- (3, 7, "Observations", "Début du projet", "2019-11-22 08:00", "2019-11-22 17:00"),
+ (3, 12, "Observations", "Début du projet", "2019-11-22 08:00", "2019-11-22 17:00"),
  (3, 7, "Estimations", NULL, "2019-11-23 08:00", "2019-11-23 17:00"),
- (3, 7, "Croquis simples", NULL, "2019-11-24 08:00", "2019-11-24 17:00"),
- (3, 7, "Proposition croquis", NULL, "2019-11-25 08:00", "2019-11-25 17:00"),
- (3, 7, "Calculs contraintes", NULL, "2019-11-26 08:00", "2019-11-26 17:00"),
+ (3, 9, "Croquis simples", NULL, "2019-11-24 08:00", "2019-11-24 17:00"),
+ (3, 9, "Proposition croquis", NULL, "2019-11-25 08:00", "2019-11-25 17:00"),
+ (3, 6, "Calculs contraintes", NULL, "2019-11-26 08:00", "2019-11-26 17:00"),
  (3, 7, "Soumission croquis ", NULL, "2019-11-27 08:00", "2019-11-27 17:00"),
- (3, 7, "Simulations", NULL, "2019-11-28 08:00", "2019-11-28 17:00"),
- (3, 7, "Corrections", NULL, "2019-11-29 08:00", "2019-11-29 17:00"),
+ (3, 12, "Simulations", NULL, "2019-11-28 08:00", "2019-11-28 17:00"),
+ (3, 9, "Corrections", NULL, "2019-11-29 08:00", "2019-11-29 17:00"),
  (3, 7, "Validation", NULL, "2019-11-30 08:00", "2019-12-03 17:00"),
  (3, 7, "Confirmation", "Fin de projet", "2019-12-04 08:00", "2019-12-06 17:00"),
  #4EME PROJET
  (4, 9, "Observations", "Début du projet", "2019-11-22 12:00", "2019-11-22 17:00"),
- (4, 9, "Estimations", NULL, "2019-11-23 08:00", "2019-11-23 17:00"),
- (4, 9, "Croquis simples", NULL, "2019-11-24 08:00", "2019-11-24 17:00"),
- (4, 9, "Proposition croquis", NULL, "2019-11-25 08:00", "2019-11-25 17:00"),
- (4, 9, "Calculs contraintes", NULL, "2019-11-26 08:00", "2019-11-26 17:00"),
- (4, 9, "Soumission croquis ", NULL, "2019-11-27 08:00", "2019-11-27 17:00"),
- (4, 9, "Simulations", NULL, "2019-11-28 08:00", "2019-11-28 17:00"),
+ (4, 11, "Estimations", NULL, "2019-11-23 08:00", "2019-11-23 17:00"),
+ (4, 10, "Croquis simples", NULL, "2019-11-24 08:00", "2019-11-24 17:00"),
+ (4, 16, "Proposition croquis", NULL, "2019-11-25 08:00", "2019-11-25 17:00"),
+ (4, 16, "Calculs contraintes", NULL, "2019-11-26 08:00", "2019-11-26 17:00"),
+ (4, 10, "Soumission croquis ", NULL, "2019-11-27 08:00", "2019-11-27 17:00"),
+ (4, 11, "Simulations", NULL, "2019-11-28 08:00", "2019-11-28 17:00"),
  (4, 9, "Corrections", NULL, "2019-11-29 08:00", "2019-11-29 17:00"),
- (4, 9, "Validation", NULL, "2019-11-30 08:00", "2019-11-30 17:00"),
+ (4, 11, "Validation", NULL, "2019-11-30 08:00", "2019-11-30 17:00"),
  (4, 9, "Confirmation", "Fin de projet", "2019-12-01 08:00", "2019-12-08 09:00");
 
 /*
@@ -255,25 +255,83 @@ VALUES (8, 1, 13),
 	EXERCICE 10
 */
 INSERT INTO messages (message_project_id, message_sender_id, message_receiver_id, message_content, message_sent_datetime)
-VALUES 	("1", "3", "1", "SAMPLE TEXT 1", "2019-11-20 12:00"),
-		("2", "8", "1", "SAMPLE TEXT 2", "2019-11-20-15:00"),
-		("4", "19", "1", "SAMPLE TEXT 3", "2019-11-20-15:00"),
-		("2", "4", "1", "SAMPLE TEXT 4", "2019-11-20-15:00"),
-		("1", "16", "1", "SAMPLE TEXT 5", "2019-11-20-15:00"),
-		("2", "2", "1", "SAMPLE TEXT 6", "2019-11-20-15:00"),
-		("3", "8", "1", "SAMPLE TEXT 7", "2019-11-20-15:00"),
-		("2", "6", "1", "SAMPLE TEXT 8", "2019-11-20-15:00"),
-		("1", "10", "1", "SAMPLE TEXT 9", "2019-11-20-15:00"),
-		("2", "15", "1", "SAMPLE TEXT 10", "2019-11-20-15:00"),
-		("4", "3", "1", "SAMPLE TEXT 11", "2019-11-20-15:00"),
-		("1", "3", "1", "SAMPLE TEXT 12", "2019-11-20-15:00"),
-		("3", "3", "1", "SAMPLE TEXT 13", "2019-11-20-15:00"),
-		("2", "3", "1", "SAMPLE TEXT 14", "2019-11-20-15:00"),
-		("1", "3", "1", "SAMPLE TEXT 15", "2019-11-20-15:00"),
-		("4", "3", "1", "SAMPLE TEXT 16", "2019-11-20-15:00"),
-		("2", "3", "1", "SAMPLE TEXT 17", "2019-11-20-15:00"),
-		("3", "3", "1", "SAMPLE TEXT 18", "2019-11-20-15:00"),
-		("2", "3", "1", "SAMPLE TEXT 19", "2019-11-20-15:00")
+VALUES 
+  #GROUPE PROJET 1
+  ("1", "2", "17", "Projet 1 GRP 1", "2019-11-20 12:00"),
+  ("1", "3", "2", "Projet 1 GRP 2", "2019-11-21 12:00"),
+  ("1", "5", "17", "Projet 1 GRP 3", "2019-11-21 15:00"),
+  ("1", "2", "2", "Projet 1 GRP 4", "2019-11-22 12:00"),
+  ("1", "7", "17", "Projet 1 GRP 5", "2019-11-23 12:00"),
+  ("1", "17", "2", "Projet 1 GRP 6", "2019-11-24 12:00"),
+  ("1", "3", "17", "Projet 1 GRP 7", "2019-11-25 12:00"),
+  ("1", "5", "2", "Projet 1 GRP 8", "2019-11-26 12:00"),
+  #PROJET 1 (2 ET 17)
+  ("1", "2", "17", "Projet 1 PV 1", "2019-11-21 12:00"),
+  ("1", "17", "2", "Projet 1 PV 2", "2019-11-23 12:00"),
+  ("1", "2", "17", "Projet 1 PV 3", "2019-11-25 12:00"),
+  ("1", "17", "2", "Projet 1 PV 4", "2019-11-26 12:00"),
+  #GROUPE PROJET 2
+  ("2", "4", "17", "Projet 2 GRP 1", "2019-11-21 12:00"),
+  ("2", "3", "2", "Projet 2 GRP 2", "2019-11-21 12:00"),
+  ("2", "8", "17", "Projet 2 GRP 3", "2019-11-21 12:00"),
+  ("2", "11", "2", "Projet 2 GRP 4", "2019-11-23 12:00"),
+  ("2", "12", "17", "Projet 2 GRP 5", "2019-11-24 12:00"),
+  ("2", "12", "2", "Projet 2 GRP 6", "2019-11-24 12:00"),
+  ("2", "8", "17", "Projet 2 GRP 7", "2019-11-25 12:00"),
+  ("2", "3", "2", "Projet 2 GRP 8", "2019-11-26 12:00"),
+  ("2", "3", "17", "Projet 2 GRP 9", "2019-11-26 12:00"),
+  ("2", "11", "2", "Projet 2 GRP 10", "2019-11-28 12:00"),
+  #PROJET 2 (8 ET 18)
+  ("2", "18", "8", "Projet 2 PV 1", "2019-11-21 12:00"),
+  ("2", "18", "8", "Projet 2 PV 2", "2019-11-24 12:00"),
+  ("2", "8", "18", "Projet 2 PV 3", "2019-11-26 12:00"),
+  ("2", "18", "8", "Projet 2 PV 4", "2019-11-28 12:00"),
+  #GROUPE PROJET 3
+  ("3", "7", "17", "Projet 3 GRP 1", "2019-11-22 12:00"),
+  ("3", "6", "2", "Projet 3 GRP 2", "2019-11-23 12:00"),
+  ("3", "9", "17", "Projet 3 GRP 3", "2019-11-23 12:00"),
+  ("3", "12", "2", "Projet 3 GRP 4", "2019-11-24 12:00"),
+  ("3", "7", "17", "Projet 3 GRP 5", "2019-11-25 12:00"),
+  ("3", "9", "2", "Projet 3 GRP 6", "2019-11-25 12:00"),
+  ("3", "6", "17", "Projet 3 GRP 7", "2019-11-26 12:00"),
+  ("3", "9", "2", "Projet 3 GRP 8", "2019-11-27 12:00"),
+  ("3", "7", "17", "Projet 3 GRP 9", "2019-11-29 12:00"),
+  ("3", "12", "2", "Projet 3 GRP 10", "2019-11-30 12:00"),
+  ("3", "6", "17", "Projet 3 GRP 11", "2019-12-01 12:00"),
+  ("3", "9", "2", "Projet 3 GRP 12", "2019-12-04 12:00"),
+  #PROJET 3 (12 et 19)
+  ("3", "12", "19", "Projet 3 PV 1", "2019-11-22 12:00"),
+  ("3", "19", "12", "Projet 3 PV 2", "2019-11-24 12:00"),
+  ("3", "12", "19", "Projet 3 PV 3", "2019-11-27 12:00"),
+  ("3", "12", "19", "Projet 3 PV 4", "2019-11-30 12:00"),
+  ("3", "19", "12", "Projet 3 PV 5", "2019-12-01 12:00"),
+  ("3", "12", "19", "Projet 3 PV 6", "2019-12-04 12:00"),
+  #GROUPE PROJET 4
+  ("4", "4", "17", "Projet 4 GRP 1", "2019-11-23 12:00"),
+  ("4", "10", "2", "Projet 4 GRP 2", "2019-11-24 12:00"),
+  ("4", "11", "17", "Projet 4 GRP 3", "2019-11-26 12:00"),
+  ("4", "16", "2", "Projet 4 GRP 4", "2019-11-27 12:00"),
+  ("4", "16", "17", "Projet 4 GRP 5", "2019-11-28 12:00"),
+  ("4", "16", "2", "Projet 4 GRP 6", "2019-11-28 12:00"),
+  ("4", "11", "17", "Projet 4 GRP 7", "2019-11-29 12:00"),
+  ("4", "11", "2", "Projet 4 GRP 8", "2019-11-29 12:00"),
+  ("4", "4", "17", "Projet 4 GRP 9", "2019-11-29 12:00"),
+  ("4", "4", "2", "Projet 4 GRP 10", "2019-11-30 12:00"),
+  ("4", "11", "17", "Projet 4 GRP 11", "2019-11-30 12:00"),
+  ("4", "4", "2", "Projet 4 GRP 12", "2019-12-02 12:00"),
+  ("4", "16", "2", "Projet 4 GRP 13", "2019-12-02 12:00"),
+  ("4", "4", "17", "Projet 4 GRP 14", "2019-12-03 12:00"),
+  ("4", "4", "2", "Projet 4 GRP 15", "2019-12-04 12:00"),
+  #PROJET 4 (4 et 17)
+  ("4", "4", "4", "Projet 4 PV 1", "2019-11-23 12:00"),
+  ("4", "17", "4", "Projet 4 PV 2", "2019-11-25 12:00"),
+  ("4", "4", "17", "Projet 4 PV 3", "2019-11-27 12:00"),
+  ("4", "4", "17", "Projet 4 PV 4", "2019-11-28 12:00"),
+  ("4", "17", "4", "Projet 4 PV 5", "2019-11-29 12:00"),
+  ("4", "4", "17", "Projet 4 PV 6", "2019-12-01 12:00"),
+  ("4", "17", "4", "Projet 4 PV 7", "2019-12-03 12:00"),
+  ("4", "4", "17", "Projet 4 PV 8", "2019-12-04 12:00")
+
 /*
 	EXERCICE 11
 */
@@ -361,15 +419,15 @@ SELECT  P.project_name,
         M.message_sent_datetime,
         (SELECT DATEDIFF (MAX(M.message_sent_datetime), MIN(M.message_sent_datetime)) / COUNT(M.message_sent_datetime) FROM messages as M WHERE M.message_project_id = 1) AS average_days_between_messages
 FROM projects AS P, users AS U, messages AS M
-WHERE P.project_id = M.message_project_id AND M.message_sender_id = U.user_id
-AND P.project_id = 1
-GROUP BY P.project_name, U.user_name, U.user_firstname, M.message_content, M.message_sent_datetime
+WHERE P.project_id = 1 AND M.message_project_id = P.project_id AND (M.message_sender_id = U.user_id OR M.message_sender_id = U.user_id)
+GROUP BY P.project_name, U.user_firstname, U.user_name, M.message_content, M.message_sent_datetime
 
 /*
   EXERCICE 22
 */
-
-
+SELECT projects.project_name, CONCAT(users.user_firstname," ", users.user_name) AS name_expeditor, messages.message_content, messages.message_sent_datetime
+FROM projects, users, messages
+WHERE project_id = 1 AND (users.user_id = projects.project_customer_id OR users.user_id = projects.project_architect_id) AND messages.message_sender_id = users.user_id
 
 /*
 	EXERCICE 23
