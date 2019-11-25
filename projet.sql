@@ -25,8 +25,9 @@ CREATE TABLE IF NOT EXISTS users (
     user_password VARCHAR(80) NOT NULL UNIQUE,
     user_role VARCHAR(10) NOT NULL,
     user_signdatetime DATETIME NOT NULL,
-	PRIMARY KEY (user_id)
-    );
+	  PRIMARY KEY (user_id)
+    )
+    ENGINE INNODB;
 
 CREATE TABLE IF NOT EXISTS projects (
     project_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -37,51 +38,68 @@ CREATE TABLE IF NOT EXISTS projects (
     project_delivery_datetime DATETIME NOT NULL,
     project_quotation INT NOT NULL,
     project_commentary TEXT,
-	PRIMARY KEY (project_id)
-    );
+    PRIMARY KEY (project_id),
+    CONSTRAINT fk_projects_project_customer_id FOREIGN KEY (project_customer_id) REFERENCES users(user_id),
+    CONSTRAINT fk_projects_project_architect_id FOREIGN KEY (project_architect_id) REFERENCES users(user_id)
+    )
+    ENGINE INNODB;
 
 CREATE TABLE IF NOT EXISTS steps (
     step_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    step_project_id INT NOT NULL,
+    step_project_id INT UNSIGNED NOT NULL,
     step_architect_id INT UNSIGNED NOT NULL,
     step_name VARCHAR(20) NOT NULL,
     step_commentary TEXT,
     step_start_datetime DATETIME NOT NULL,
     step_done_datetime DATETIME NOT NULL,
-	PRIMARY KEY (step_id)
-    );
+	  PRIMARY KEY (step_id),
+    CONSTRAINT fk_steps_step_project_id FOREIGN KEY (step_project_id) REFERENCES projects(project_id),
+    CONSTRAINT fk_steps_step_architect_id FOREIGN KEY (step_architect_id) REFERENCES users(user_id)
+    )
+    ENGINE INNODB;
 
-CREATE TABLE IF NOT EXISTS architect (
+CREATE TABLE IF NOT EXISTS architects (
   	architect_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    architect_project_id INT NOT NULL,
+    architect_project_id INT UNSIGNED NOT NULL,
     architect_assigned_datetime DATETIME NOT NULL,
-    PRIMARY KEY (architect_id)
-    );
+    PRIMARY KEY (architect_id),
+    CONSTRAINT fk_architects_architect_id FOREIGN KEY (architect_project_id) REFERENCES users(user_id),
+    CONSTRAINT fk_architects_architect_project_id FOREIGN KEY (architect_project_id) REFERENCES projects(project_id)
+    )
+    ENGINE INNODB;
 
-CREATE TABLE IF NOT EXISTS used_material (
+CREATE TABLE IF NOT EXISTS used_materials (
   	used_material_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     used_material_name VARCHAR(20) NOT NULL,
     used_material_surface_price INT NOT NULL,
 	PRIMARY KEY (used_material_id)
-    );
+    )
+    ENGINE INNODB;
 
 CREATE TABLE IF NOT EXISTS materials (
   	material_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   	material_material_id INT UNSIGNED NOT NULL,
-    material_project_id INT NOT NULL,
+    material_project_id INT UNSIGNED NOT NULL,
     material_needed_surface INT NOT NULL,
-	PRIMARY KEY (material_id)
-    );
+	  PRIMARY KEY (material_id),
+    CONSTRAINT fk_materials_material_id FOREIGN KEY (material_material_id) REFERENCES used_materials(used_material_id),
+    CONSTRAINT fk_materials_project_id FOREIGN KEY (material_project_id) REFERENCES projects(project_id)
+    )
+    ENGINE INNODB;
 
 CREATE TABLE IF NOT EXISTS messages (
     message_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    message_project_id INT NOT NULL,
-    message_sender_id INT NOT NULL,
-    message_receiver_id INT NOT NULL,
+    message_project_id INT UNSIGNED NOT NULL,
+    message_sender_id INT UNSIGNED NOT NULL,
+    message_receiver_id INT UNSIGNED NOT NULL,
     message_content TEXT NOT NULL,
     message_sent_datetime DATETIME NOT NULL,
-	PRIMARY KEY (message_id)
+	  PRIMARY KEY (message_id),
+    CONSTRAINT fk_messages_message_id FOREIGN KEY (message_project_id) REFERENCES projects(project_id),
+    CONSTRAINT fk_messages_message_sender_id FOREIGN KEY (message_sender_id) REFERENCES users(user_id),
+    CONSTRAINT fk_messages_message_receiver_id FOREIGN KEY (message_receiver_id) REFERENCES users(user_id)
     )
+    ENGINE INNODB;
 
 /*
 	EXERCICE 4
@@ -116,7 +134,7 @@ INSERT INTO projects (project_customer_id, project_architect_id, project_name, p
 VALUES  (17, 2, "Maison du Pauvre", "2019-11-19 08:00", "2019-12-01 13:00", 70000, "Délai à ne pas dépasser"),
 		(18, 8, "Maison du pas riche", "2019-11-20 10:30", "2019-12-03 08:00", 100000, NULL),
 		(19, 12, "Maison du bien payé", "2019-11-21 16:00", "2020-12-06 11:00", 125000, "Le client roucoule fort"),
-         (17, 4, "Maison de Kollector", "2019-11-22 12:00", "2019-12-08 09:00", 62500, "Client très content");
+    (17, 4, "Maison de Kollector", "2019-11-22 12:00", "2019-12-08 09:00", 62500, "Client très content");
 
 /*
 	EXERCICE 6
@@ -169,7 +187,7 @@ INSERT INTO steps (step_project_id, step_architect_id, step_name, step_commentar
 /*
 	EXERCICE 7
 */
-INSERT INTO architect (architect_id, architect_project_id, architect_assigned_datetime)
+INSERT INTO architects (architect_id, architect_project_id, architect_assigned_datetime)
 VALUES  (2, 1, "2019-11-20 08:00:00"),
         (8, 2, "2019-11-21 10:30:00"),
         (12, 3, "2019-11-22 16:00:00"),
@@ -178,27 +196,27 @@ VALUES  (2, 1, "2019-11-20 08:00:00"),
 /*
 	EXERCICE 8
 */
- INSERT INTO used_material (used_material_name, used_material_surface_price)
- VALUES  ("Carrelage", 10),
-         ("Parquet", 16),
-         ("Laine de verre", 45),
-         ("Argile", 16),
-         ("Marbre", 7),
-         ("Acier", 30),
-         ("Verre", 20),
-         ("Plastique", 15),
-         ("Isolants", 20),
-         ("Faience", 15),
-         ("Béton", 13),
-         ("Fontes", 40),
-         ("Céramiques", 18),
-         ("Cuir", 90),
-         ("Mousse", 40),
-         ("Contreplaqués", 32),
-         ("Plexiglas", 3),
-         ("Parpaings", 9),
-         ("Goudron", 22),
-         ("Tuile", 24);
+INSERT INTO used_materials (used_material_name, used_material_surface_price)
+VALUES  ("Carrelage", 10),
+        ("Parquet", 16),
+        ("Laine de verre", 45),
+        ("Argile", 16),
+        ("Marbre", 7),
+        ("Acier", 30),
+        ("Verre", 20),
+        ("Plastique", 15),
+        ("Isolants", 20),
+        ("Faience", 15),
+        ("Béton", 13),
+        ("Fontes", 40),
+        ("Céramiques", 18),
+        ("Cuir", 90),
+        ("Mousse", 40),
+        ("Contreplaqués", 32),
+        ("Plexiglas", 3),
+        ("Parpaings", 9),
+        ("Goudron", 22),
+        ("Tuile", 24);
 
 /*
 	EXERCICE 9
@@ -291,22 +309,22 @@ AND P.project_architect_id = 8
 /*
 	EXERCICE 15
 */
-SELECT P.project_name, CONCAT(U.user_name, ' ', U.user_firstname) AS architect_name, SUM(UM.used_material_surface_price * M.material_needed_surface) AS total_price
-FROM projects AS P, users AS U, materials as M, used_material AS UM
+SELECT P.project_name, CONCAT(U.user_firstname, ' ', U.user_name) AS architect_name, SUM(UM.used_material_surface_price * M.material_needed_surface) AS total_price
+FROM projects AS P, users AS U, materials as M, used_materials AS UM
 WHERE P.project_id = M.material_project_id AND M.material_material_id = UM.used_material_id AND P.project_architect_id = U.user_id
 AND P.project_id = 1
 
 /*
 	EXERCICE 16
 */
-SELECT P.project_name, P.project_start_datetime, P.project_quotation, CONCAT(U.user_name, ' ', U.user_firstname) AS nom_prenom, U.user_signdatetime
+SELECT P.project_name, P.project_start_datetime, P.project_quotation, CONCAT(U.user_firstname, ' ', U.user_name) AS nom_prenom, U.user_signdatetime
 FROM projects AS P, users AS U
 WHERE P.project_id = 1 AND U.user_id = P.project_architect_id
 
 /*
 	EXERCICE 17
 */
-SELECT DISTINCT projects.project_name, projects.project_start_datetime, projects.project_quotation, CONCAT(users.user_name, " ", users.user_firstname) as name_architects
+SELECT DISTINCT projects.project_name, projects.project_start_datetime, projects.project_quotation, CONCAT(users.user_firstname, " ", users.user_name) as name_architects
 FROM projects, users, steps
 WHERE steps.step_architect_id = users.user_id AND steps.step_project_id = projects.project_id
 AND projects.project_id = 1
@@ -314,7 +332,7 @@ AND projects.project_id = 1
 /*
 	EXERCICE 18
 */
-SELECT P.project_name, P.project_start_datetime, P.project_quotation, CONCAT(U.user_name, ' ', U.user_firstname) AS nom_prenom, U.user_signdatetime, S.step_name
+SELECT P.project_name, P.project_start_datetime, P.project_quotation, CONCAT(U.user_firstname, ' ', U.user_name) AS nom_prenom, U.user_signdatetime, S.step_name
 FROM projects AS P, users AS U, steps AS S
 WHERE P.project_id = 1 AND U.user_id = P.project_architect_id AND S.step_project_id = P.project_id
 
@@ -338,7 +356,7 @@ AND S.step_project_id = P.project_id
 	EXERCICE 21
 */
 SELECT  P.project_name,
-    CONCAT(U.user_name," ", U.user_firstname) AS name_expeditor,
+    CONCAT(U.user_firstname," ", U.user_name) AS name_expeditor,
         M.message_content,
         M.message_sent_datetime,
         (SELECT DATEDIFF (MAX(M.message_sent_datetime), MIN(M.message_sent_datetime)) / COUNT(M.message_sent_datetime) FROM messages as M WHERE M.message_project_id = 1) AS average_days_between_messages
@@ -356,7 +374,7 @@ GROUP BY P.project_name, U.user_name, U.user_firstname, M.message_content, M.mes
 /*
 	EXERCICE 23
 */
-SELECT DISTINCT projects.project_name, projects.project_start_datetime, projects.project_delivery_datetime, CONCAT(users.user_name, " ", users.user_firstname) AS referent_name_first,
+SELECT DISTINCT projects.project_name, projects.project_start_datetime, projects.project_delivery_datetime, CONCAT(users.user_firstname, " ", users.user_name) AS referent_firstname_name,
 (SELECT DISTINCT MAX(steps.step_done_datetime)
   FROM projects, steps
   WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id
