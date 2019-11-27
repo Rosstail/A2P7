@@ -435,6 +435,19 @@ FROM projects, users, messages
 WHERE projects.project_id = 1 AND (users.user_id = projects.project_customer_id OR users.user_id = projects.project_architect_id) 
 AND messages.message_sender_id = users.user_id AND messages.message_project_id = projects.project_id 
 AND (messages.message_receiver_id = projects.project_customer_id OR messages.message_receiver_id = projects.project_architect_id)
+
+
+SELECT CAST(AVG(messages.message_sent_datetime) AS DATETIME)
+FROM projects, messages
+WHERE projects.project_id = 1 AND messages.message_project_id = projects.project_id
+
+SELECT DATEDIFF( 
+    (SELECT CAST(AVG(messages.message_sent_datetime) AS DATETIME) 
+     FROM projects, messages, users 
+     WHERE projects.project_id = 1 AND messages.message_project_id = projects.project_id AND users.user_id = projects.project_architect_id AND messages.message_sender_id = users.user_id),
+    (SELECT CAST(AVG(messages.message_sent_datetime) AS DATETIME) 
+     FROM projects, messages, users 
+     WHERE projects.project_id = 1 AND messages.message_project_id = projects.project_id AND users.user_id = projects.project_customer_id AND messages.message_sender_id = users.user_id) ) AS BITCH
 /*
 	EXERCICE 23
 */
