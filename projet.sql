@@ -336,7 +336,7 @@ VALUES
 	EXERCICE 11
 */
 SELECT project_name, project_start_datetime, project_quotation
-FROM projects
+FROM projects;
 
 /*
 	EXERCICE 12
@@ -345,7 +345,7 @@ SELECT project_name, project_start_datetime, project_quotation
 FROM projects
 #si valeur de project_quotation égale valeur sélectionnée (ici min / max)
 WHERE project_quotation = (SELECT MIN(project_quotation) FROM projects)
-OR project_quotation = (SELECT MAX(project_quotation) FROM projects)
+OR project_quotation = (SELECT MAX(project_quotation) FROM projects);
 
 /*
 	EXERCICE 13
@@ -354,7 +354,7 @@ SELECT project_name, project_start_datetime, project_delivery_datetime, DATEDIFF
 FROM projects
 #si valeur de project_days égale valeur sélectionnée (ici min / max)
 WHERE DATEDIFF(project_delivery_datetime, project_start_datetime) = (SELECT MIN(DATEDIFF(project_delivery_datetime, project_start_datetime)) FROM projects)
-OR DATEDIFF(project_delivery_datetime, project_start_datetime) = (SELECT MAX(DATEDIFF(project_delivery_datetime, project_start_datetime)) FROM projects)
+OR DATEDIFF(project_delivery_datetime, project_start_datetime) = (SELECT MAX(DATEDIFF(project_delivery_datetime, project_start_datetime)) FROM projects);
 
 /*
 	EXERCICE 14
@@ -362,7 +362,7 @@ OR DATEDIFF(project_delivery_datetime, project_start_datetime) = (SELECT MAX(DAT
 SELECT P.project_name, P.project_start_datetime, P.project_quotation, U.user_name, U.user_firstname, U.user_signdatetime
 FROM projects as P, users as U
 WHERE P.project_architect_id = U.user_id
-AND P.project_architect_id = 8
+AND P.project_architect_id = 8;
 
 /*
 	EXERCICE 15
@@ -370,14 +370,14 @@ AND P.project_architect_id = 8
 SELECT P.project_name, CONCAT(U.user_firstname, ' ', U.user_name) AS architect_name, SUM(UM.used_material_surface_price * M.material_needed_surface) AS total_price
 FROM projects AS P, users AS U, materials as M, used_materials AS UM
 WHERE P.project_id = M.material_project_id AND M.material_material_id = UM.used_material_id AND P.project_architect_id = U.user_id
-AND P.project_id = 1
+AND P.project_id = 1;
 
 /*
 	EXERCICE 16
 */
 SELECT P.project_name, P.project_start_datetime, P.project_quotation, CONCAT(U.user_firstname, ' ', U.user_name) AS nom_prenom, U.user_signdatetime
 FROM projects AS P, users AS U
-WHERE P.project_id = 1 AND U.user_id = P.project_architect_id
+WHERE P.project_id = 1 AND U.user_id = P.project_architect_id;
 
 /*
 	EXERCICE 17
@@ -385,21 +385,21 @@ WHERE P.project_id = 1 AND U.user_id = P.project_architect_id
 SELECT DISTINCT projects.project_name, projects.project_start_datetime, projects.project_quotation, CONCAT(users.user_firstname, " ", users.user_name) as name_architects
 FROM projects, users, steps
 WHERE steps.step_architect_id = users.user_id AND steps.step_project_id = projects.project_id
-AND projects.project_id = 1
+AND projects.project_id = 1;
 
 /*
 	EXERCICE 18
 */
 SELECT P.project_name, P.project_start_datetime, P.project_quotation, CONCAT(U.user_firstname, ' ', U.user_name) AS nom_prenom, U.user_signdatetime, S.step_name
 FROM projects AS P, users AS U, steps AS S
-WHERE P.project_id = 1 AND U.user_id = P.project_architect_id AND S.step_project_id = P.project_id
+WHERE P.project_id = 1 AND U.user_id = P.project_architect_id AND S.step_project_id = P.project_id;
 
 /*
 	EXERCICE 19
 */
 SELECT P.project_name, DATEDIFF(P.project_delivery_datetime, P.project_start_datetime) AS project_estimated_days, DATEDIFF(MAX(S.step_done_datetime), MIN(S.step_start_datetime)) AS real_time
 FROM projects AS P, steps as S
-WHERE P.project_id = 1 AND S.step_project_id = P.project_id
+WHERE P.project_id = 1 AND S.step_project_id = P.project_id;
 
 /*
 	EXERCICE 20
@@ -408,7 +408,7 @@ WHERE P.project_id = 1 AND S.step_project_id = P.project_id
 SELECT P.project_name, P.project_start_datetime, P.project_quotation, S.step_done_datetime
 FROM projects AS P, steps AS S
 WHERE S.step_done_datetime > (SELECT MAX(P.project_delivery_datetime) FROM projects AS P)
-AND S.step_project_id = P.project_id
+AND S.step_project_id = P.project_id;
 
 /*
 	EXERCICE 21
@@ -420,7 +420,7 @@ SELECT  P.project_name,
         (SELECT DATEDIFF (MAX(M.message_sent_datetime), MIN(M.message_sent_datetime)) / COUNT(M.message_sent_datetime) FROM messages as M WHERE M.message_project_id = 1) AS average_days_between_messages
 FROM projects AS P, users AS U, messages AS M
 WHERE P.project_id = 1 AND M.message_project_id = P.project_id AND (M.message_sender_id = U.user_id OR M.message_sender_id = U.user_id)
-GROUP BY P.project_name, U.user_firstname, U.user_name, M.message_content, M.message_sent_datetime
+GROUP BY P.project_name, U.user_firstname, U.user_name, M.message_content, M.message_sent_datetime;
 
 /*
   EXERCICE 22
@@ -473,7 +473,8 @@ SELECT DISTINCT projects.project_name, projects.project_start_datetime, projects
   WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id
 ) AS nb_days_per_steps
 FROM projects, users, steps, messages, architects
-WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id AND architects.architect_project_id = projects.project_id AND users.user_id = architects.architect_id AND messages.message_project_id = projects.project_id
+WHERE projects.project_id = 2 AND steps.step_project_id = projects.project_id AND architects.architect_project_id = projects.project_id 
+AND users.user_id = architects.architect_id AND messages.message_project_id = projects.project_id;
 
 #   F I N #
 
