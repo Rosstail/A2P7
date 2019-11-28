@@ -330,7 +330,7 @@ VALUES
   ("4", "17", "4", "Projet 4 PV 5", "2019-11-29 12:00"),
   ("4", "4", "17", "Projet 4 PV 6", "2019-12-01 12:00"),
   ("4", "17", "4", "Projet 4 PV 7", "2019-12-03 12:00"),
-  ("4", "4", "17", "Projet 4 PV 8", "2019-12-04 12:00")
+  ("4", "4", "17", "Projet 4 PV 8", "2019-12-04 12:00");
 
 /*
 	EXERCICE 11
@@ -443,7 +443,7 @@ SELECT projects.project_name, CONCAT(users.user_firstname," ",
 FROM projects, users, messages
 WHERE projects.project_id = 1 AND (users.user_id = projects.project_customer_id OR users.user_id = projects.project_architect_id) 
 AND messages.message_sender_id = users.user_id AND messages.message_project_id = projects.project_id 
-AND (messages.message_receiver_id = projects.project_customer_id OR messages.message_receiver_id = projects.project_architect_id)
+AND (messages.message_receiver_id = projects.project_customer_id OR messages.message_receiver_id = projects.project_architect_id);
 
 /*
 	EXERCICE 23
